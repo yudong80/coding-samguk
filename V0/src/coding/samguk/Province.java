@@ -1,5 +1,8 @@
 package coding.samguk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Province {
     private int no;                 //번호
     private String name;            //이름
@@ -19,6 +22,8 @@ public class Province {
     private int commerce;           //상업
     private int taxRate;            //세율
 
+    private List<General> generals = new ArrayList<>();
+
     public Province(int num, String nm, General sv, General gv, General ad, 
         int pop, int gld, int fd, int loy, 
         int dev, int cul, int wt, int irr, int cmr, int tax) {
@@ -37,6 +42,39 @@ public class Province {
         irrigation = irr;
         commerce = cmr;
         taxRate = tax;
+
+        //addGenerals
+        addGeneralIfNotNull(sv);
+        addGeneralIfNotNull(gv);
+        addGeneralIfNotNull(ad);
+    }
+
+    private void addGeneralIfNotNull(General gen) {
+        if (gen == null) return;
+
+        addGeneral(gen);
+    }
+
+    public void addGeneral(General newGeneral) {
+        for (General gen : generals) {
+            if (newGeneral.getName().equals(gen.getName())) {
+                return; //skip
+            }
+        }
+
+        generals.add(newGeneral);
+    }
+
+    public int getGenerals() {
+        return generals.size();
+    }
+
+    public int getSolders() {
+        int total = 0;
+        for (General general : generals) {
+            total += general.getArmy();
+        }
+        return total;
     }
 
     @Override
@@ -44,7 +82,13 @@ public class Province {
         StringBuilder sb = new StringBuilder();
         sb.append(no).append(",").append(name).append(",").append(sovereign.getName()).append("::")
         .append(governor.getName()).append(",").append(advisor.getName()).append("::")
-        .append(population).append(",").append(gold).append(",").append(food);
+        .append(population).append(",").append(gold).append(",").append(food).append("::")
+        .append(getSolders()).append("::")
+        .append("[").append(getGenerals()).append("] ");
+
+        for (General gen : generals) {
+            sb.append(gen.getName()).append(",");
+        }
 
         return sb.toString();
     }

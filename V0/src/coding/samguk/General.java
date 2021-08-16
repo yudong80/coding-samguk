@@ -29,6 +29,13 @@ public class General {
 
     public String getName() { return name; }
 
+    public int getArmy() { return army; }
+
+    public General setArmy(int man) {
+        army = man;
+        return this;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
