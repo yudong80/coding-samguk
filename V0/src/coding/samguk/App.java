@@ -16,7 +16,7 @@ public class App {
         General 조조 = new General("조조", (194-40-1), 89, 94, 98, 90, 93, 59);
         General 순욱 = new General("순욱", (194-32-1), 37, 96, 85, 85, 62, 60);
 
-        Province 낙양 = new Province("낙양", 조조, 조조, 순욱, 782_000, 3_500, 65_000, 40, 57, 0, 60, 56, 730, 40);
+        Province 낙양 = new Province(11, "낙양", 조조, 조조, 순욱, 782_000, 3_500, 65_000, 40, 57, 0, 60, 56, 730, 40);
         System.out.println(낙양);
     }
 
