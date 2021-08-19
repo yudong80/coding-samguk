@@ -45,6 +45,18 @@ public class App {
         System.out.println(낙양);
     }
 
+    public void test조조능력치() {
+        GeneralsMap map = GeneralsMap.getInstance();
+        TreasuresMap tMap = TreasuresMap.getInstance();
+
+        General 조조 = map.find("조조")
+            .addTreasure(tMap.find("맹덕신서"))
+            .addTreasure(tMap.find("청공검"))
+            .addTreasure(tMap.find("의천검"))
+            .addTreasure(tMap.find("조황비전"));
+        System.out.println(조조);
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, Coding Samguk V0!");
         App app = new App();
@@ -57,5 +69,8 @@ public class App {
 
         //3. 낙양 장수들(17명)
         app.test낙양장수들();
+
+        //4. 조조의 능력치(+보물)
+        app.test조조능력치();
     }
 }

@@ -1,5 +1,8 @@
 package coding.samguk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class General {
     private String name;
 
@@ -13,6 +16,8 @@ public class General {
     
     private int army;           //병사수 
     private int armyType;       //병종 
+
+    private List<Treasure> treasures = new ArrayList<>(); //보물들
 
     public General(String n, 
         int y, int w, int i, int c, int p,
@@ -36,12 +41,60 @@ public class General {
         return this;
     }
 
+    public General addTreasure(Treasure treasure) {
+        treasures.add(treasure);
+        return this;
+    }
+
+    private int getWarAbilityAdded() {
+        int res = 0;
+        for (Treasure t : treasures) {
+            if (t.getWarAbilityAdded() > res) {
+                res = t.getWarAbilityAdded();
+            }
+        }
+        return res;
+    }
+
+    private int getIntelligenceAdded() {
+        int res = 0;
+        for (Treasure t : treasures) {
+            if (t.getIntelligenceAdded() > res) {
+                res = t.getIntelligenceAdded();
+            }
+        }
+        return res;
+    }
+
+    private int getCharismaAdded() {
+        int res = 0;
+        for (Treasure t : treasures) {
+            if (t.getCharismaAdded() > res) {
+                res = t.getCharismaAdded();
+            }
+        }
+        return res;
+    }
+
+    private int getPoliticsAdded() {
+        int res = 0;
+        for (Treasure t : treasures) {
+            if (t.getPoliticsAdded() > res) {
+                res = t.getPoliticsAdded();
+            }
+        }
+        return res;
+    }
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(name).append(",").append(year).append("::")
-        .append(warAbility).append(",").append(intelligence).append(",")
-        .append(charisma).append(",").append(politics).append("::")
+        .append(warAbility).append("(+").append(getWarAbilityAdded()).append("),")
+        .append(intelligence).append("(+").append(getIntelligenceAdded()).append("),")
+        .append(charisma).append("(+").append(getCharismaAdded()).append("),")
+        .append(politics).append("(+").append(getPoliticsAdded()).append(")::")
         .append(armyCommand).append(",").append(navalCommand);
         return sb.toString();
     }
