@@ -32,8 +32,8 @@ public class ProvinceNet {
         Province 허창 = find(19);
 
         낙양.addNeighbors(홍농, 완, 허창);
-        홍농.addNeighbors(허창);
-        완.addNeighbors(낙양, 허창);
+        홍농.addNeighbors(낙양);
+        완.addNeighbors(신야, 낙양, 허창);
         신야.addNeighbors(완);
         허창.addNeighbors(낙양, 완);
     }
@@ -65,7 +65,19 @@ public class ProvinceNet {
                 .addGeneral(gMap.find("전위").setArmy(2300))
                 .addGeneral(gMap.find("이전").setArmy(1800))
                 .addGeneral(gMap.find("유연")),
-            new Province(12, "홍농", 조조, 하우돈, 만총, 141_000, 2_700, 55_000, 55, 55, 0, 55, 42, 580, 40), 
+            new Province(12, "홍농", 조조, 하우돈, 만총, 141_000, 2_700, 55_000, 55, 55, 0, 55, 42, 580, 40)
+                .addGeneral(gMap.find("하우돈").setArmy(6400))
+                .addGeneral(gMap.find("우금").setArmy(1500))
+                .addGeneral(gMap.find("윤봉").setArmy(1700))
+                .addGeneral(gMap.find("악진"))
+                .addGeneral(gMap.find("강서").setArmy(1900))
+                .addGeneral(gMap.find("차주").setArmy(1000))
+                .addGeneral(gMap.find("장연").setArmy(1800))
+                .addGeneral(gMap.find("조앙").setArmy(1800))
+                .addGeneral(gMap.find("만총"))
+                .addGeneral(gMap.find("모개").setArmy(1500))
+                .addGeneral(gMap.find("양부").setArmy(1700))
+                .addGeneral(gMap.find("양관").setArmy(1600)), 
             new Province(22, "완", 원술, 원술, null, 404_000, 2_450, 50_000, 78, 55, 0, 45, 42, 575, 40),
             new Province(23, "신야", null, null, null, 378_000, 150, 550, 60, 53, 0, 50, 47, 470, 40),
             new Province(19, "허창", null, null, null, 514_000, 150, 550, 50, 50, 0, 40, 30, 720, 40),

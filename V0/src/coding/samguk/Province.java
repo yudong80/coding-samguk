@@ -68,6 +68,11 @@ public class Province {
         return this;
     }
 
+    public Province removeGeneral(General general) {
+        generals.remove(general);
+        return this;
+    }
+
     public int getGenerals() {
         return generals.size();
     }
@@ -82,9 +87,33 @@ public class Province {
 
     public int getNo() { return no; }
 
+    public String getName() { return name; }
+
     public Province addNeighbors(Province... others) {
         neighbors.addAll(Arrays.asList(others));    
         return this;
+    }
+
+    public void transferTo(General general, Province destination) {
+        if (!isTrasferable(general, destination)) {
+            String errMsg = "장수 " + general.getName() + "을 " + destination.getName() + 
+                "으로 이동할 수 없습니다. \n 인접한 지역이 여부를 확인하세요!!";
+            System.out.println(errMsg);
+            return; 
+        }
+
+        removeGeneral(general);
+        destination.addGeneral(general);
+    }
+
+    private boolean isTrasferable(General general, Province destination) {
+        for (Province neighbor : neighbors) {
+            //System.out.println(destination.getNo() + " vs " + neighbor.getNo());
+            if (destination.getNo() == neighbor.getNo()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

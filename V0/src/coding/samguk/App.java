@@ -67,6 +67,25 @@ public class App {
         System.out.println(허창19);
     }
 
+    public void test군사_이동() {
+        System.out.println("test군사_이동(): ");
+        ProvinceNet pNet = ProvinceNet.getInstance();
+        Province 낙양 = pNet.find(11);
+        Province 홍농 = pNet.find(12);
+        GeneralsMap gMap = GeneralsMap.getInstance();
+        General 우금 = gMap.find("우금");
+
+        //우금(1500)을 홍농(12) -> 낙양(11) 로 이동 
+        System.out.println("BEFORE:");
+        System.out.println(낙양);
+        System.out.println(홍농);
+
+        홍농.transferTo(우금, 낙양);
+        System.out.println("AFTER:");
+        System.out.println(낙양);
+        System.out.println(홍농);
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, Coding Samguk V0!");
         App app = new App();
@@ -85,5 +104,8 @@ public class App {
 
         //5. 낙양 지도 
         app.testProvinceNet();
+
+        //6. 군사 > 이동 시험 
+        app.test군사_이동();
     }
 }
