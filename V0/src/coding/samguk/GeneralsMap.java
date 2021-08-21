@@ -24,9 +24,15 @@ public class GeneralsMap {
     }
 
     private void init() { 
+        TreasuresMap tMap = TreasuresMap.getInstance(); 
+
         General[] arr = {
             //이름, 연도, 무력, 지력, 매력, 정치력, 육지, 수지
-            new General("조조", (194-40-1), 89, 94, 98, 90, 93, 59),
+            new General("조조", (194-40-1), 89, 94, 98, 90, 93, 59)
+                .addTreasure(tMap.find("맹덕신서"))
+                .addTreasure(tMap.find("청공검"))
+                .addTreasure(tMap.find("의천검"))
+                .addTreasure(tMap.find("조황비전")),
             new General("곽가", (194-25-1), 36, 80, 82, 97, 32, 6),
             new General("하우연", (194-37-1), 90, 58, 55, 82, 32, 6),
             new General("하우은", (194-28-1), 60, 62, 75, 64, 58, 27),
@@ -43,6 +49,9 @@ public class GeneralsMap {
             new General("전위", (194-35-1), 96, 33, 54, 21, 84, 74),
             new General("이전", (194-34-1), 72, 47, 53, 36, 73, 70),
             new General("유연", (194-29-1), 45, 50, 32, 57, 40, 20),
+            new General("원술", (194-41-1), 79, 67, 53, 61, 71, 63),
+            new General("하우돈", (194-38-1), 95, 60, 75, 54, 90, 76),
+            new General("만총", (194-25-1), 38, 81, 94, 70, 72, 70),
         };
 
         for (General gen : arr) { 

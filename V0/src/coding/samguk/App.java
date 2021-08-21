@@ -47,14 +47,24 @@ public class App {
 
     public void test조조능력치() {
         GeneralsMap map = GeneralsMap.getInstance();
-        TreasuresMap tMap = TreasuresMap.getInstance();
-
-        General 조조 = map.find("조조")
-            .addTreasure(tMap.find("맹덕신서"))
-            .addTreasure(tMap.find("청공검"))
-            .addTreasure(tMap.find("의천검"))
-            .addTreasure(tMap.find("조황비전"));
+        General 조조 = map.find("조조");
         System.out.println(조조);
+    }
+
+    public void testProvinceNet() { 
+        ProvinceNet pNet = ProvinceNet.getInstance();
+        Province 낙양11 = pNet.find(11);
+        Province 홍농12 = pNet.find(12);
+        Province 완22 = pNet.find(22);
+        Province 신야23 = pNet.find(23);
+        Province 허창19 = pNet.find(19);
+
+        //지역 정보 표시 
+        System.out.println(낙양11);
+        System.out.println(홍농12);
+        System.out.println(완22);
+        System.out.println(신야23);
+        System.out.println(허창19);
     }
 
     public static void main(String[] args) throws Exception {
@@ -72,5 +82,8 @@ public class App {
 
         //4. 조조의 능력치(+보물)
         app.test조조능력치();
+
+        //5. 낙양 지도 
+        app.testProvinceNet();
     }
 }

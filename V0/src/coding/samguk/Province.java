@@ -1,6 +1,7 @@
 package coding.samguk;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Province {
@@ -23,6 +24,7 @@ public class Province {
     private int taxRate;            //세율
 
     private List<General> generals = new ArrayList<>();
+    private List<Province> neighbors = new ArrayList<>();
 
     public Province(int num, String nm, General sv, General gv, General ad, 
         int pop, int gld, int fd, int loy, 
@@ -55,14 +57,15 @@ public class Province {
         addGeneral(gen);
     }
 
-    public void addGeneral(General newGeneral) {
+    public Province addGeneral(General newGeneral) {
         for (General gen : generals) {
             if (newGeneral.getName().equals(gen.getName())) {
-                return; //skip
+                return this; //skip
             }
         }
 
         generals.add(newGeneral);
+        return this;
     }
 
     public int getGenerals() {
@@ -77,12 +80,37 @@ public class Province {
         return total;
     }
 
+    public int getNo() { return no; }
+
+    public Province addNeighbors(Province... others) {
+        neighbors.addAll(Arrays.asList(others));    
+        return this;
+    }
+
     @Override
     public String toString() { 
         StringBuilder sb = new StringBuilder();
-        sb.append(no).append(",").append(name).append(",").append(sovereign.getName()).append("::")
-        .append(governor.getName()).append(",").append(advisor.getName()).append("::")
-        .append(population).append(",").append(gold).append(",").append(food).append("::")
+        sb.append(no).append(",")
+        .append(name).append(",");
+        if(sovereign != null) {
+            sb.append(sovereign.getName()).append("::");
+        } else {
+            sb.append("N/A").append("::");
+        }
+
+        if(governor != null) {
+            sb.append(governor.getName()).append(",");
+        } else {
+            sb.append("N/A").append(",");
+        }
+
+        if (advisor != null) {
+            sb.append(advisor.getName()).append("::");
+        } else {
+            sb.append("N/A").append("::");
+        }
+        
+        sb.append(population).append(",").append(gold).append(",").append(food).append("::")
         .append(getSolders()).append("::")
         .append("[").append(getGenerals()).append("] ");
 
