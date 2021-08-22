@@ -16,6 +16,8 @@ public class General {
     
     private int army;           //병사수 
     private int armyType;       //병종 
+    private int trained;        //훈련 
+    private int morale;         //사기
 
     private List<Treasure> treasures = new ArrayList<>(); //보물들
 
@@ -36,8 +38,10 @@ public class General {
 
     public int getArmy() { return army; }
 
-    public General setArmy(int man) {
+    public General setArmy(int man, int tr, int mo) {
         army = man;
+        trained = tr;
+        morale = mo;
         return this;
     }
 
@@ -86,6 +90,20 @@ public class General {
         return res;
     }
 
+    public int getWarAbility() { return warAbility + getWarAbilityAdded(); }
+
+    public int getMorale() { return morale; }
+
+    public void motivateSoldiers(List<General> generals) {
+        double total = 0;
+        for (General g : generals) {
+            total += g.getWarAbility();
+        }
+
+        //편의상 totalWarAbility가 100이면 20의 사기를 높인다고 가정합니다.
+        int added = (int) (20 * total / 100);
+        morale += added;
+    }
 
     @Override
     public String toString() {
@@ -95,7 +113,8 @@ public class General {
         .append(intelligence).append("(+").append(getIntelligenceAdded()).append("),")
         .append(charisma).append("(+").append(getCharismaAdded()).append("),")
         .append(politics).append("(+").append(getPoliticsAdded()).append(")::")
-        .append(armyCommand).append(",").append(navalCommand);
+        .append(armyCommand).append(",").append(navalCommand).append("::")
+        .append(trained).append(",").append(morale);
         return sb.toString();
     }
 }

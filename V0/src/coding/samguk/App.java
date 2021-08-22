@@ -25,22 +25,22 @@ public class App {
         General 조조 = map.find("조조");
         General 순욱 = map.find("순욱");
         Province 낙양 = new Province(11, "낙양", 조조, 조조, 순욱, 782_000, 3_500, 65_000, 40, 57, 0, 60, 56, 730, 40);
-        낙양.addGeneral(map.find("조조").setArmy(6500));
+        낙양.addGeneral(map.find("조조").setArmy(6500, 65, 60));
         낙양.addGeneral(map.find("곽가"));
-        낙양.addGeneral(map.find("하우연").setArmy(2300));
+        낙양.addGeneral(map.find("하우연").setArmy(2300, 65, 60));
         낙양.addGeneral(map.find("하우은"));
-        낙양.addGeneral(map.find("하우모").setArmy(1500));
-        낙양.addGeneral(map.find("순욱").setArmy(1600));
+        낙양.addGeneral(map.find("하우모").setArmy(1500, 65, 60));
+        낙양.addGeneral(map.find("순욱").setArmy(1600, 65, 60));
         낙양.addGeneral(map.find("순상"));
         낙양.addGeneral(map.find("순유"));
-        낙양.addGeneral(map.find("조앙").setArmy(1000));
-        낙양.addGeneral(map.find("조홍").setArmy(2000));
-        낙양.addGeneral(map.find("조인").setArmy(2100));
-        낙양.addGeneral(map.find("조순").setArmy(1800));
+        낙양.addGeneral(map.find("조앙").setArmy(1000, 65, 60));
+        낙양.addGeneral(map.find("조홍").setArmy(2000, 65, 60));
+        낙양.addGeneral(map.find("조인").setArmy(2100, 65, 60));
+        낙양.addGeneral(map.find("조순").setArmy(1800, 65, 60));
         낙양.addGeneral(map.find("진교"));
         낙양.addGeneral(map.find("정욱"));
-        낙양.addGeneral(map.find("전위").setArmy(2300));
-        낙양.addGeneral(map.find("이전").setArmy(1800));
+        낙양.addGeneral(map.find("전위").setArmy(2300, 65, 60));
+        낙양.addGeneral(map.find("이전").setArmy(1800, 65, 60));
         낙양.addGeneral(map.find("유연"));
         System.out.println(낙양);
     }
@@ -86,6 +86,46 @@ public class App {
         System.out.println(홍농);
     }
 
+    public void test군사_수송() { 
+        System.out.println("test군사_수송(): ");
+        ProvinceNet pNet = ProvinceNet.getInstance();
+        Province 낙양 = pNet.find(11);
+        Province 홍농 = pNet.find(12);
+        GeneralsMap gMap = GeneralsMap.getInstance();
+        General 악진 = gMap.find("악진");
+        General 강서 = gMap.find("강서");
+        
+        //홍농(12)의 금 1500과 군량 30000을 낙양(11)으로 수송 
+        //수송은 악진, 강서가 담당 
+        System.out.println("BEFORE:");
+        System.out.println(낙양);
+        System.out.println(홍농);
+
+        홍농.transport(Arrays.asList(악진, 강서), 낙양, 1_500, 30_000);
+        System.out.println("AFTER:");
+        System.out.println(낙양);
+        System.out.println(홍농);
+    }
+
+    public void test군사_전쟁준비() {
+        System.out.println("test군사_전쟁준비(): ");
+
+        //낙양(11)의 조조(무:89) 와 하우연(무:99)이 전쟁준비를 수행합니다.
+        ProvinceNet pNet = ProvinceNet.getInstance();
+        Province 낙양 = pNet.find(11);
+        General 낙양조조 = 낙양.findGeneral("조조");
+        General 낙양하우연 = 낙양.findGeneral("하우연");
+
+        System.out.println("BEFORE:");
+        System.out.println(낙양조조);
+        System.out.println(낙양하우연);
+        
+        낙양.motivateSoldiers(Arrays.asList(낙양조조, 낙양하우연));
+        System.out.println("AFTER:");
+        System.out.println(낙양조조);
+        System.out.println(낙양하우연);
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, Coding Samguk V0!");
         App app = new App();
@@ -107,5 +147,11 @@ public class App {
 
         //6. 군사 > 이동 시험 
         app.test군사_이동();
+
+        //7. 군사 > 수송 
+        app.test군사_수송();
+
+        //8. 군사 > 전쟁준비 
+        app.test군사_전쟁준비();
     }
 }

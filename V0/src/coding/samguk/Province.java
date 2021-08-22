@@ -73,6 +73,15 @@ public class Province {
         return this;
     }
 
+    public General findGeneral(String name) {
+        for (General g : generals) {
+            if (name.equals(g.getName())) {
+                return g;
+            }
+        }
+        return null;
+    }
+
     public int getGenerals() {
         return generals.size();
     }
@@ -89,13 +98,23 @@ public class Province {
 
     public String getName() { return name; }
 
+    public General getSovereign() { return sovereign; }
+
+    public int getGold() { return gold; }
+
+    public int getFood() { return food; }
+
     public Province addNeighbors(Province... others) {
         neighbors.addAll(Arrays.asList(others));    
         return this;
     }
 
+    public void addGold(int g) { gold += g; }
+
+    public void addFood(int f) { food += f; }
+
     public void transferTo(General general, Province destination) {
-        if (!isTrasferable(general, destination)) {
+        if (!isTransferable(destination)) {
             String errMsg = "장수 " + general.getName() + "을 " + destination.getName() + 
                 "으로 이동할 수 없습니다. \n 인접한 지역이 여부를 확인하세요!!";
             System.out.println(errMsg);
@@ -106,7 +125,9 @@ public class Province {
         destination.addGeneral(general);
     }
 
-    private boolean isTrasferable(General general, Province destination) {
+    private boolean isTransferable(Province destination) {
+        if (!isSameSoverign(destination)) return false;
+
         for (Province neighbor : neighbors) {
             //System.out.println(destination.getNo() + " vs " + neighbor.getNo());
             if (destination.getNo() == neighbor.getNo()) {
@@ -114,6 +135,43 @@ public class Province {
             }
         }
         return false;
+    }
+
+    private boolean isSameSoverign(Province destination) { 
+        return sovereign == destination.getSovereign();
+    }
+
+    //TODO (군사 > 수송) 노궁, 강노, 군마 추가 필요 
+    //TODO (군사 > 수송) 인접 지역외에 먼 지역도 가능 필요
+    //TODO (군사 > 수송) 수행하는 장수의 무력에 따라 산적 약탈 기능 추가 필요
+    public void transport(List<General> generals, Province destination, 
+        int targetGold, int targetFood) {
+        if (!isTransferable(destination)) {
+            String errMsg = destination.getName() + 
+                "으로 수송할 수 없습니다. \n 인접한 지역이 여부를 확인하세요!!";
+            System.out.println(errMsg);
+            return; 
+        }
+
+        if (gold < targetGold || food < targetFood) {
+            String errMsg = "금 혹은 식량이 부족합니다.";
+            System.out.println(errMsg);
+            return;
+        }
+
+        gold -= targetGold;
+        food -= targetFood; 
+
+        destination.addGold(targetGold);
+        destination.addFood(targetFood);
+    }
+
+    public void motivateSoldiers(List<General> targetGenerals) {
+        for (General targetGen : targetGenerals) {
+            if (generals.contains(targetGen)) {
+                targetGen.motivateSoldiers(targetGenerals);
+            }
+        }
     }
 
     @Override
