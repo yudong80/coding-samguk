@@ -92,6 +92,12 @@ public class General {
 
     public int getWarAbility() { return warAbility + getWarAbilityAdded(); }
 
+    public int getIntelligence() { return intelligence + getIntelligenceAdded(); }
+
+    public int getCharisma() { return charisma + getCharismaAdded(); }
+
+    public int getPolitics() { return politics + getPoliticsAdded(); }
+
     public int getMorale() { return morale; }
 
     public void motivateSoldiers(List<General> generals) {
