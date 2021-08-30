@@ -146,4 +146,35 @@ public class AppTest {
         assertTrue(조조.getMorale() > 조조이전사기);
         assertTrue(하우연.getMorale() > 하우연이전사기);
     }
+
+    @Test
+    void test군사_징병() { 
+        ProvinceNet.forceInitialize(); //FIXME 고쳐야 함 
+        ProvinceNet pNet = ProvinceNet.getInstance();
+        Province 낙양 = pNet.find(11);
+        General 조조 = 낙양.findGeneral("조조");
+        General 하우연 = 낙양.findGeneral("하우연");
+
+        int army = 낙양.requestDraftArmy(Arrays.asList(조조, 하우연));
+        낙양.draftArmy(army);
+
+        assertEquals(1_4200, army);
+        assertEquals(2_080, 낙양.getGold()); //3500 -> 2080
+        assertEquals(50_800, 낙양.getFood()); //65000 -> 50800
+    }
+
+    @Test
+    void test군사_모병() { 
+        ProvinceNet pNet = ProvinceNet.getInstance();
+        Province 낙양 = pNet.find(11);
+        General 조조 = 낙양.findGeneral("조조");
+        General 곽가 = 낙양.findGeneral("곽가");
+
+        int army = 낙양.requestRaiseArmy(Arrays.asList(조조, 곽가));
+        낙양.raiseArmy(army);
+
+        assertEquals(8_700, army);
+        assertEquals(20, 낙양.getGold()); //3500 -> 20
+        assertEquals(47_600, 낙양.getFood()); //65000 -> 47600
+    }
 }

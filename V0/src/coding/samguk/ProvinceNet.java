@@ -12,6 +12,10 @@ public class ProvinceNet {
         setNetwork();
     }
 
+    public static void forceInitialize() {
+        _instance = new ProvinceNet();
+    }
+
     public static ProvinceNet getInstance() { 
         if (_instance == null) {
             _instance = new ProvinceNet();

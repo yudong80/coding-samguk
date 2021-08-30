@@ -174,6 +174,42 @@ public class Province {
         }
     }
 
+    public int requestDraftArmy(List<General> generals) {
+        assert 0 <= generals.size() && generals.size() <= 2;
+
+        final int warAbility = GeneralUtils.getTotalWarAbility(generals);
+        return ArmyUtils.getMaxDraftSoldiers(warAbility, gold, food);
+    }
+
+    public void draftArmy(int soldiers) {
+        double goldCost = (double)soldiers * ArmyUtils.GOLD_PER_DRAFT_ARMY;
+        double foodCost = (double)soldiers * ArmyUtils.FOOD_PER_DRAFT_ARMY;
+
+        assert gold >= goldCost;
+        assert food >= foodCost;
+
+        gold -= (int) goldCost;
+        food -= (int) foodCost;
+    }
+
+    public int requestRaiseArmy(List<General> generals) {
+        assert 0 <= generals.size() && generals.size() <= 2;
+
+        final int charisma = GeneralUtils.getTotalCharisma(generals);
+        return ArmyUtils.getMaxRaiseSoldiers(charisma, gold, food);
+    }
+
+    public void raiseArmy(int soldiers) {
+        double goldCost = (double)soldiers * ArmyUtils.GOLD_PER_RAISE_ARMY;
+        double foodCost = (double)soldiers * ArmyUtils.FOOD_PER_RAISE_ARMY;
+
+        assert gold >= goldCost;
+        assert food >= foodCost;
+
+        gold -= (int) goldCost;
+        food -= (int) foodCost;
+    }
+
     @Override
     public String toString() { 
         StringBuilder sb = new StringBuilder();
