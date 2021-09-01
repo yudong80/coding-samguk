@@ -12,7 +12,8 @@ public class ProvinceNet {
         setNetwork();
     }
 
-    public static void forceInitialize() {
+    //Only for testing
+    static void initForTesting() {
         _instance = new ProvinceNet();
     }
 

@@ -6,9 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
+    @BeforeEach
+    void initForTesting() {
+        ProvinceNet.initForTesting();
+    }
+
     @Test 
     void testCreateSomeGenerals() {
         General 조홍 = new General("조홍", (218-50-1),  74, 47, 75, 41, 74, 72);
@@ -149,7 +155,6 @@ public class AppTest {
 
     @Test
     void test군사_징병() { 
-        ProvinceNet.forceInitialize(); //FIXME 고쳐야 함 
         ProvinceNet pNet = ProvinceNet.getInstance();
         Province 낙양 = pNet.find(11);
         General 조조 = 낙양.findGeneral("조조");
