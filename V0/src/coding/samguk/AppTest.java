@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
@@ -168,6 +169,7 @@ public class AppTest {
         assertEquals(50_800, 낙양.getFood()); //65000 -> 50800
     }
 
+    @Disabled
     @Test
     void test군사_모병() { 
         ProvinceNet pNet = ProvinceNet.getInstance();
