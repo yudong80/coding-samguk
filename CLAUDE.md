@@ -13,7 +13,11 @@ Since this is a basic Java project without build automation tools, all commands 
 ### Compilation
 ```bash
 cd V0
-javac -d bin -cp src src/coding/samguk/*.java
+# Compile main application only
+javac -d bin -cp src src/coding/samguk/App.java src/coding/samguk/General.java src/coding/samguk/Province.java src/coding/samguk/Treasure.java src/coding/samguk/GeneralsMap.java src/coding/samguk/ProvinceNet.java src/coding/samguk/TreasuresMap.java src/coding/samguk/GeneralUtils.java src/coding/samguk/ArmyUtils.java
+
+# Compile with tests (includes JUnit 5)
+javac -d bin -cp "src;lib/junit-platform-console-standalone-1.7.0-M1.jar" src/coding/samguk/*.java
 ```
 
 ### Running the Application
@@ -27,10 +31,10 @@ The project uses JUnit 5 for testing:
 ```bash
 cd V0
 # Compile tests (requires JUnit 5 on classpath)
-javac -d bin -cp "src:lib/*" src/coding/samguk/*.java
+javac -d bin -cp "src;lib/junit-platform-console-standalone-1.7.0-M1.jar" src/coding/samguk/*.java
 
-# Run specific test
-java -cp "bin:lib/*" org.junit.platform.console.ConsoleLauncher --select-class coding.samguk.AppTest
+# Run all tests
+java -cp "bin;lib/junit-platform-console-standalone-1.7.0-M1.jar" org.junit.platform.console.ConsoleLauncher --select-class coding.samguk.AppTest
 ```
 
 ## Code Architecture
